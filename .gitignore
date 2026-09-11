@@ -10,3 +10,9 @@ plugins
 build
 
 *.egg-info
+# local exploration artefacts
+sample_data/
+local_output/
+questions.json
+answers.json
+.env

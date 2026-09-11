@@ -8,7 +8,7 @@ from capstonellm.common.catalog import llm_bucket
 
 @pytest.fixture
 def s3_path() -> str:
-    destination = "" # example: cleaned/jonas/python-polars
+    destination = "cleaned/ketan/airflow" # example: cleaned/jonas/python-polars
 
     if not destination:
         raise Exception("TODO: specify the data destination in test_clean.py")

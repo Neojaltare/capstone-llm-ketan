@@ -1,6 +1,6 @@
 # Dataminded Capstone LLM
 
-[![Dataminded Academy](https://raw.githubusercontent.com/datamindedacademy/branding/main/assets/badge.svg)](https://github.com/datamindedacademy)
+[Dataminded Academy](https://github.com/datamindedacademy)
 
 Welcome to the Capstone project!
 Everything you've learned over the past days will now be integrated in a realistic data pipeline.
@@ -19,12 +19,13 @@ If this is going well, we will run it on a cloud platform, called [Conveyor](htt
 To get started, we've set up a GitHub Codespaces environment containing all the tools required to complete this exercise (awscli, python, vscode, ...).
 
 We recommend that you:
-* Fork this repository to your own GitHub account by clicking the `Fork` button in the top right corner of this page.
-* Edit the `README.md` by clicking the pencil icon on the top right of its rendering. Change the GitHub Codespaces URL, swapping `datamindedacademy` for your own Github username.
-* Commit changes by clicking the green button
-* Finally, click the button to "Open in GitHub workspaces":
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/datamindedacademy/capstone-llm)
+- Fork this repository to your own GitHub account by clicking the `Fork` button in the top right corner of this page.
+- Edit the `README.md` by clicking the pencil icon on the top right of its rendering. Change the GitHub Codespaces URL, swapping `datamindedacademy` for your own Github username.
+- Commit changes by clicking the green button
+- Finally, click the button to "Open in GitHub workspaces":
+
+[Open in GitHub Codespaces](https://codespaces.new/datamindedacademy/capstone-llm)
 
 ## GitHub Codespaces environment
 
@@ -62,13 +63,17 @@ root/
    | pyproject.toml
 ```
 
+
+
 ## AWS access
+
 In order to access the necessary data on S3, you will need to configure your AWS credentials.
 You can do this by running `aws configure` and filling in the necessary information.
 We will provide you with individual `access_key_id` and `secret_access_key`.
 Specify as default region `eu-west-1`.
 
 After this you should be able to successfully run the following command:
+
 ```bash
 aws s3 ls s3://dataminded-academy-capstone-llm-data/input/
 ```
@@ -76,6 +81,8 @@ aws s3 ls s3://dataminded-academy-capstone-llm-data/input/
 If this works, you are ready to start the project.
 
 ## Task 1: Transform and load the stackoverflow data
+
+
 
 ### Context
 
@@ -100,9 +107,9 @@ Start by writing your cleaning transformation by reading/writing local files and
 Given the input data for 1 tag, the goal is to create 1 json document per question containing the title, question body and the response body.
 So your goal is to extract the relevant fields from both the questions and answers and join them together using the `question_id` field.
 
-> **_NOTE:_** When reading from s3, make sure to use `s3a://` prefix.
+> ***NOTE:*** When reading from s3, make sure to use `s3a://` prefix.
 
-> **_NOTE:_** In order for your job to access the s3 bucket, you will need to export the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
+> ***NOTE:*** In order for your job to access the s3 bucket, you will need to export the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables.
 
 Write the cleaned json documents per question again to s3 under path `cleaned/<user>/{tag}`
 
@@ -125,6 +132,7 @@ The following commands are assumed to run in the root of your project.
   - you can check if your task ran correctly by running `pytest tests/test_clean.py`
 
 
+
 ## Task 2: Schedule your task using Airflow
 
 As you now have working python code, we now want to make sure this is triggered using Airflow.
@@ -134,14 +142,15 @@ We start with a local installation of Airflow, you can use the `docker-compose.y
 
 - Package the python code in a Dockerfile. If you used the provided scaffolding, this should be easy. Take a look at the Dockerfile and make sure you understand everything
 - Create an Airflow DAG with one task (clean) that will run your clean job using the [DockerOperator](https://airflow.apache.org/docs/apache-airflow/1.10.9/_api/airflow/operators/docker_operator/index.html).
-  In order to access S3, you will have to pass your credentials to the Docker container.
+In order to access S3, you will have to pass your credentials to the Docker container.
+
+
 
 ## Task 3: Ingest the stackoverflow data
 
-> **_NOTE:_** This is an optional task, if you still have time.
+> ***NOTE:*** This is an optional task, if you still have time.
 
-The goal here is to create the input data yourself instead of relying on the data that we have provided.
-In order to do this you will have to investigate the [Stackoverflow API](https://api.stackexchange.com/docs).
+The goal here is to create the input data yourself instead of relying on the data that we have provided. In order to do this you will have to investigate the [Stackoverflow API](https://api.stackexchange.com/docs).
 You should call the API and fetch the questions and answers separately, which can be done as follows:
 
 - Query the questions given 1 or more specified tags
@@ -163,6 +172,8 @@ In our case this will be Conveyor.
 - To test things out you can run: `conveyor run`
 - Build and deploy your project: `conveyor build && conveyor deploy --env test`
 
+
+
 ## Useful commands
 
 Setup virtual environment:
@@ -176,3 +187,4 @@ Tasks:
 - `docker compose up -d` to start the airflow server
 - `uv export --format requirements-txt > requirements.txt` to export the dependencies to a `requirements.txt` file
 - `uv run python3 -m capstonellm.tasks.clean` run clean task locally
+

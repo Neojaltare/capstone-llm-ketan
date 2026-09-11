@@ -29,3 +29,9 @@ dags
 Dockerfile
 tests
 pytest.ini
+
+# local exploration artefacts
+sample_data
+local_output
+*.json
+explore.ipynb
